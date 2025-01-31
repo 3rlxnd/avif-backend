@@ -6,8 +6,13 @@ const rateLimit = require("express-rate-limit");
 const indexRouter = require("./routes/index.js");
 require("./model/clean.js");
 app.use(indexRouter);
-const cors = require('cors');
-app.use(cors());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all origins
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allowed methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allowed headers
+  next();
+});
 
 const limiter = rateLimit({
   windowMs: 1000,

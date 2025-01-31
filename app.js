@@ -6,6 +6,8 @@ const rateLimit = require("express-rate-limit");
 const indexRouter = require("./routes/index.js");
 require("./model/clean.js");
 app.use(indexRouter);
+const cluster = require('cluster');
+const os = require('os');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all origins

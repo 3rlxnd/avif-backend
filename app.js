@@ -1,32 +1,33 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-require('dotenv').config();
-const sessions = require('express-session');
-const rateLimit = require('express-rate-limit');
-const indexRouter = require('./routes/index.js');
-require('./model/clean.js');
-
+require("dotenv").config();
+const sessions = require("express-session");
+const rateLimit = require("express-rate-limit");
+const indexRouter = require("./routes/index.js");
+require("./model/clean.js");
 app.use(indexRouter);
+const cors = require('cors');
+app.use(cors());
 
 const limiter = rateLimit({
   windowMs: 1000,
   max: 1000,
-  message: 'Too many requests from this IP, please try again later',
+  message: "Too many requests from this IP, please try again later",
 });
 
 app.use(limiter);
 
 app.use(function (req, res, next) {
   if (!req.headers) {
-    res.status(403).send('Forbidden')
+    res.status(403).send("Forbidden");
     // return res.status(403).json({
     //   success: false,
     //   message: '403 Forbidden',
     // });
   }
 
-  if (!req.headers['user-agent']) {
-    res.status(403).send('Forbidden')
+  if (!req.headers["user-agent"]) {
+    res.status(403).send("Forbidden");
     // return res.status(403).json({
     //   success: false,
     //   message: '403 Forbidden',
@@ -41,11 +42,11 @@ const cookieTimeout = 1000 * 60 * 60 * 24;
 
 app.use(
   sessions({
-    secret: 'somesecret',
+    secret: "somesecret",
     saveUninitialized: true,
     cookie: { maxAge: cookieTimeout },
     resave: false,
-  }),
+  })
 );
 
 // if (cluster.isMaster) {
@@ -66,5 +67,5 @@ app.use(
 // }
 
 app.listen(port, () => {
-    console.log(`App listening on https://localhost:${port}`)
-})
+  console.log(`App listening on https://localhost:${port}`);
+});

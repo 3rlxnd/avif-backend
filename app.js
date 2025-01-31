@@ -6,8 +6,8 @@ const rateLimit = require("express-rate-limit");
 const indexRouter = require("./routes/index.js");
 require("./model/clean.js");
 app.use(indexRouter);
-const cluster = require('cluster');
-const os = require('os');
+// const cluster = require('cluster');
+// const os = require('os');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all origins
@@ -56,23 +56,23 @@ app.use(
   })
 );
 
-if (cluster.isMaster) {
-  const numCPUs = os.cpus().length;
+// if (cluster.isMaster) {
+//   const numCPUs = os.cpus().length;
 
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+//   for (let i = 0; i < numCPUs; i++) {
+//     cluster.fork();
+//   }
 
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} died`);
-    cluster.fork();
-  });
-} else {
-  app.listen(port, () => {
-    console.log(`Worker process ${process.pid} listening on https://localhost:${port}`);
-  });
-}
+//   cluster.on('exit', (worker, code, signal) => {
+//     console.log(`Worker ${worker.process.pid} died`);
+//     cluster.fork();
+//   });
+// } else {
+//   app.listen(port, () => {
+//     console.log(`Worker process ${process.pid} listening on https://localhost:${port}`);
+//   });
+// }
 
-// app.listen(port, () => {
-//   console.log(`App listening on https://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`App listening on https://localhost:${port}`);
+});

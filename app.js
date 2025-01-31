@@ -54,23 +54,23 @@ app.use(
   })
 );
 
-// if (cluster.isMaster) {
-//   const numCPUs = os.cpus().length;
+if (cluster.isMaster) {
+  const numCPUs = os.cpus().length;
 
-//   for (let i = 0; i < numCPUs; i++) {
-//     cluster.fork();
-//   }
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-//   cluster.on('exit', (worker, code, signal) => {
-//     console.log(`Worker ${worker.process.pid} died`);
-//     cluster.fork();
-//   });
-// } else {
-//   app.listen(port, () => {
-//     console.log(`Worker process ${process.pid} listening on https://localhost:${port}`);
-//   });
-// }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  app.listen(port, () => {
+    console.log(`Worker process ${process.pid} listening on https://localhost:${port}`);
+  });
+}
 
-app.listen(port, () => {
-  console.log(`App listening on https://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`App listening on https://localhost:${port}`);
+// });

@@ -9,7 +9,7 @@ const fileUpload = require("express-fileupload");
 const converter = require("../model/convert.js");
 const database = require("../model/database.js");
 
-const maxFileSize = 3 * 1024;
+// const maxFileSize = 3 * 1024 * 100;
 
 // database.addUser()
 
@@ -54,9 +54,9 @@ router.post("/upload", authenticate, async (req, res) => {
     return res.status(400).send("No image file uploaded");
   }
   
-  if (req.files.image.size > maxFileSize) {
-    return res.status(400).send("Image file too large");
-  }
+  // if (req.files.image.size > maxFileSize) {
+  //   return res.status(400).send("Image file too large");
+  // }
 
   if (!(await database.verifyQuota(req))) {
     return res.status(400).send("No quota left");

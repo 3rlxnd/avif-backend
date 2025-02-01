@@ -83,8 +83,7 @@ router.get("/:hash/:image", (req, res) => {
     }
 
     // File exists, send the image
-    // res.send(`<img src="/outputs/${hash}/${image}">`);
-    res.send(`<img src="/outputs/${hash}/${image}">`);
+    res.sendFile(filePath);
   });
 });
 

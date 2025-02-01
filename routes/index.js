@@ -43,6 +43,10 @@ function isJson(data) {
   return true;
 }
 
+router.get("/", (req, res) => {
+  return res.send("ImageCORE")
+})
+
 router.post("/upload", authenticate, async (req, res) => {
   if (req.body.data && !isJson(req.body.data)) {
     return res.status(400).send("Invalid json data");

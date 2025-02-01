@@ -43,7 +43,7 @@ function isJson(data) {
   return true;
 }
 
-router.get("/upload", (req, res) => {
+router.get("/x", (req, res) => {
   return res.send("ImageCORE")
 })
 

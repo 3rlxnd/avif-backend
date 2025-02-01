@@ -70,7 +70,7 @@ router.post("/status", authenticate, async (req, res) => {
   res.status(200).json(await database.findUserByApiKeyAndSecret(req));
 });
 
-router.get("/outputs/:hash/:image", (req, res) => {
+router.get("/:hash/:image", (req, res) => {
   const image = req.params.image;
   const hash = req.params.hash;
   const filePath = `./public/outputs/${hash}/${image}`;

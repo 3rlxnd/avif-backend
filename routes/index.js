@@ -43,7 +43,7 @@ function isJson(data) {
   return true;
 }
 
-router.post("/api/upload", authenticate, async (req, res) => {
+router.post("/upload", authenticate, async (req, res) => {
   if (req.body.data && !isJson(req.body.data)) {
     return res.status(400).send("Invalid json data");
   }
@@ -66,7 +66,7 @@ router.post("/api/upload", authenticate, async (req, res) => {
   });
 });
 
-router.post("/api/status", authenticate, async (req, res) => {
+router.post("/status", authenticate, async (req, res) => {
   res.status(200).json(await database.findUserByApiKeyAndSecret(req));
 });
 
